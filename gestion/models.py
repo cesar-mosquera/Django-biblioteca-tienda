@@ -1,4 +1,6 @@
 from django.db import models
+from django.conf import settings
+from django.utils import timezone
 
 # Create your models here.
 
@@ -18,7 +20,7 @@ class Libro(models.Model):
             return self.titulo
         
 class Prestamo(models.Model):
-    libro = models.ForeignKey(Libro, related_name="prestamos")
+    libro = models.ForeignKey(Libro, related_name="prestamos", on_delete=models.PROTECT)
     usuario = models.ForeignKey(settings. AUTH_USER_MODEL, related_name="prestamos")
     fecha_prestamo = models.DateField(default=timezone.now)
     fecha_max = models.DateField()
@@ -41,7 +43,7 @@ class Prestamo(models.Model):
          return self.dias_retraso * tarifa 
 
 class Multa(models.Model):
-     prestamo = models.ForeignKey(Prestamo, related_name="multas")
+     prestamo = models.ForeignKey(Prestamo, related_name="multas",on_delete=models.PROTECT)
      tipo = models.CharField(max_length=10, choices=(('r','retraso'), ('p', 'perdida'),('d','deterioro')))
      monto = models.DecimalField(max_digits=3, decimal_places=2, default=0)
      pagada = models.BooleanField(default=False)
@@ -50,4 +52,18 @@ class Multa(models.Model):
     def __str__(self):
      return f"Multa {self.tipo} - {self.monto} - {self.prestamo}"
    
-    def save(self, *args* **kwargs):
+    def save(self, *args*, **kwargs):
+     if self.tipo == 'r' and self.monto == 0:
+          self.monto = self.prestamo.multa_retraso
+    super().save(*args **kwargs)
+
+
+
+
+
+
+
+
+
+#crear la base de datosc con estas  clases creadas 
+#crear un super usuari de dyango 
