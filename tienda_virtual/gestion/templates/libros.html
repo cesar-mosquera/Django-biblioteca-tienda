@@ -1,0 +1,12 @@
+{% extends "index.html" %}
+
+{% block contenido %}
+<h2>Libros</h2>
+<ul>
+  {% for libro in libros %}
+    <li>{{ libro.titulo }} - {{ libro.autor }}</li>
+  {% empty %}
+    <li>No hay libros aún.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

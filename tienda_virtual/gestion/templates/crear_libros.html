@@ -1,0 +1,24 @@
+{% extends "index.html" %}
+
+{% block contenido %}
+<h2>Crear Libro</h2>
+<form method="post">
+  {% csrf_token %}
+  <label for="id_titulo">Titulo: </label>
+  <input placeholder="dato" id="id_titulo" name="titulo" type="text" required><br/>
+
+  <label for="id_autor">Autor: </label>
+  <select id="id_autor" name="autor" required>
+    <option value="">-- Selecciona un autor --</option>
+    {% for a in autores %}
+      <option value="{{ a.id }}">{{ a.nombre }} {{ a.apellido }}</option>
+    {% endfor %}
+  </select><br/>
+
+  <label for="id_disponible">Disponible: </label>
+  <input type="checkbox" id="id_disponible" name="disponible" checked><br/>
+
+  <button type="submit">Guardar</button>
+</form>
+<p><a href="{% url 'lista_libros' %}">Volver a la lista</a></p>
+{% endblock %}

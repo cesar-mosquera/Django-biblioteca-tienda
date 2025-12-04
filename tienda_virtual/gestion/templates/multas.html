@@ -1,0 +1,12 @@
+{% extends "index.html" %}
+
+{% block contenido %}
+<h2>Multas</h2>
+<ul>
+  {% for m in multas %}
+    <li>{{ m.prestamo }} - {{ m.tipo }} - {{ m.monto }} - Pagada: {{ m.pagada }}</li>
+  {% empty %}
+    <li>No hay multas.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

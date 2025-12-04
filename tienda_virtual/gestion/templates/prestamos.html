@@ -1,0 +1,12 @@
+{% extends "index.html" %}
+
+{% block contenido %}
+<h2>Préstamos</h2>
+<ul>
+  {% for p in prestamos %}
+    <li>{{ p.libro }} - {{ p.usuario }} - {{ p.fecha_prestamo }} - {{ p.fecha_max }} - {{ p.fecha_devolucion }}</li>
+  {% empty %}
+    <li>No hay préstamos.</li>
+  {% endfor %}
+</ul>
+{% endblock %}
