@@ -3,7 +3,7 @@ from django.contrib.auth import views as auth_views
 from .views import (
     index,
     lista_libros, crear_libro,
-    lista_autores, crear_autor, editar_autor,
+    lista_autores, crear_autor,
     lista_prestamos, crear_prestamo, detalle_prestamo,
     lista_multas, crear_multa, detalle_multa,
     registro,
@@ -15,6 +15,8 @@ urlpatterns = [
     # Gestión usuarios (según ejemplo del docente)
     path('login/', auth_views.LoginView.as_view(), name='login'),
     path('registro/', registro, name='registro'),
+    path('crear_usuario/', registro, name='registro_alias_1'),
+    path('signup/', registro, name='registro_alias_2'),
     path('logout/', auth_views.LogoutView.as_view(next_page='login'), name='logout'),
 
     # Cambio de contraseña

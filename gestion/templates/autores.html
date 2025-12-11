@@ -4,10 +4,10 @@
 <h2>Autores</h2>
 <ul>
   {% for autor in autores %}
-    <li>{{ autor.nombre }} {{ autor.apellido }} - {{ autor.bibliografia }}</li>
+  <li>{{ autor.nombre }} {{ autor.apellido }} - {{ autor.bibliografia }}</li>
   {% empty %}
-    <li>No hay autores aún.</li>
+  <li>No hay autores aún.</li>
   {% endfor %}
 </ul>
-<p><a href="{% url 'crear_autor' %}">Crear autor</a></p>
+<p><a href="{% url 'crear_autores' %}">Crear autor</a></p>
 {% endblock %}

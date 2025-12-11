@@ -32,6 +32,11 @@ class Prestamo(models.Model):
      def __str__(self):
           return f"Prestamo de {self.libro} a {self.usuario}"
 
+     class Meta:
+        permissions = [
+            ("gestionar_prestamos", "Puede gestionar prestamos"),
+        ]
+
      @property
      def dias_retraso(self):
           hoy = timezone.now().date()

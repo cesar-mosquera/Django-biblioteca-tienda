@@ -6,14 +6,14 @@ from django.conf import settings
 from django.http import HttpResponse, HttpResponseForbidden
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
+from django.contrib.auth.models import Permission
+from django.contrib.contenttypes.models import ContentType
 
 from .models import Autor, Libro, Prestamo, Multa
 
 def index(request):
     titulo2 = "Hola Mundo"
-    title = settings.TITLE
-    # 'gestion/templates/home.html' in guide, simplified to 'home.html' for standard app dirs
-    return render(request, 'home.html', {'titulo': title, 't': titulo2})
+    return render(request, 'home.html', {'t': titulo2})
 
 # Libros
 def lista_libros(request):
@@ -47,10 +47,6 @@ def lista_autores(request):
     autores = Autor.objects.all()
     return render(request, 'autores.html', {'autores': autores})
 
-def criar_autor(request, id=None): # Typo in my thought but likely intentional reuse.
-# Wait, checking image again.
-# The image row 25: path('autores/<int:id>/editar/', crear_autor, name="editar_autor")
-# So 'crear_autor' view must accept 'id'.
 def crear_autor(request, id=None):
     if id:
         autor_obj = get_object_or_404(Autor, id=id)
@@ -173,8 +169,19 @@ def registro(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             usuario = form.save()
+            
+            # Asignar permiso de gestionar prestamos
+            content_type = ContentType.objects.get_for_model(Prestamo)
+            permission = Permission.objects.get(
+                codename='gestionar_prestamos',
+                content_type=content_type,
+            )
+            usuario.user_permissions.add(permission)
+            
             login(request, usuario)
             return redirect('index')
     else:
         form = UserCreationForm()
     return render(request, 'registration/registro.html', {'form': form})
+
+

@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>{% block title %}Panel Biblioteca{% endblock %}</title>
+    <title>{% block title %}{{ TITLE }}{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap 5 -->
@@ -15,13 +15,13 @@
 
     <style>
         body {
-            background: radial-gradient(circle at top, #1f2937, #020617);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             min-height: 100vh;
-            color: #e5e7eb;
+            color: #212529;
         }
 
         .navbar-custom {
-            background: linear-gradient(90deg, #0f172a, #1e293b);
+            background: linear-gradient(90deg, #0d6efd, #0a58ca);
         }
 
         .navbar-brand {
@@ -31,23 +31,24 @@
 
         .nav-link {
             font-weight: 500;
+            color: rgba(255, 255, 255, 0.85) !important;
         }
 
         .nav-link.active,
         .nav-link:hover {
-            color: #38bdf8 !important;
+            color: #fff !important;
         }
 
         .card-glass {
-            background: rgba(15, 23, 42, 0.85);
+            background: rgba(255, 255, 255, 0.9);
             border-radius: 1rem;
-            border: 1px solid rgba(148, 163, 184, 0.3);
-            box-shadow: 0 20px 30px rgba(15, 23, 42, 0.7);
-            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
         }
 
         footer {
-            color: #9ca3af;
+            color: #6c757d;
         }
     </style>
 </head>
@@ -57,7 +58,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom shadow-sm">
         <div class="container">
             <a class="navbar-brand" href="#">
-                <i class="bi bi-journal-bookmark-fill me-2"></i>Mi Biblioteca
+                <i class="bi bi-journal-bookmark-fill me-2"></i>{{ TITLE }}
             </a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
@@ -67,7 +68,7 @@
 
             <div class="collapse navbar-collapse" id="mainNavbar">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <!-- Cuando tengas tus urls de Django, cambia href="#" por {% url 'nombre_url' %} -->
+                    {# Cuando tengas tus urls de Django, cambia href="#" por {% url 'nombre_url' %} #}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'lista_libros' %}">
                             <i class="bi bi-book-half me-1"></i> Libros
